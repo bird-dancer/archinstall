@@ -1,2 +1,0 @@
-# archinstall
-dont use
