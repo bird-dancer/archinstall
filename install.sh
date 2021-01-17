@@ -14,5 +14,5 @@ echo $(pacman -S openssh grub nano sudo)
 echo $(systemctl enable sshd)
 echo $(systemctl start sshd)
 echo $(/boot/grub/grub-mkconfig > /boot/grub/grub.cfg)
-echo $(grub-install /dev/sda2)
+echo $(grub-install /dev/sda)
 echo "\n ready"
