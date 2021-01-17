@@ -10,7 +10,9 @@ echo "127.0.0.1	localhost
 127.0.1.1	diplodocus.localdomain	diplodocus" >> /etc/hosts
 echo $(mkinitcpio -P)
 echo $(pacman -Syu)
-echo $(pacman -S openssh grub)
+echo $(pacman -S openssh grub nano sudo)
+echo $(systemctl enable sshd)
+echo $(systemctl start sshd)
 echo $(/boot/grub/grub-mkconfig > /boot/grub/grub.cfg)
 echo $(grub-install /dev/sda2)
 echo "\n ready"
