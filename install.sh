@@ -7,7 +7,7 @@ echo "KEYMAP=de-latin1" >> /etc/vconsole.conf
 echo "diplodocus" >> /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	diplodocus.localdomain	diplodocus" >> /etc/hosts
+127.0.1.1	lemur.localdomain	lemur" >> /etc/hosts
 echo $(mkinitcpio -P)
 echo $(pacman -Syu)
 echo $(pacman -S openssh grub nano sudo)
