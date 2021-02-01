@@ -1,13 +1,13 @@
 echo $(ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime)
 echo $(hwclock --systohc)
-echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo $(locale-gen)
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=de-latin1" >> /etc/vconsole.conf
 echo "diplodocus" >> /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	lemur.localdomain	lemur" >> /etc/hosts
+127.0.1.1	diplodocus.localdomain	diplodocus" >> /etc/hosts
 echo $(mkinitcpio -P)
 echo $(pacman -Syu)
 echo $(pacman -S openssh grub nano sudo)
