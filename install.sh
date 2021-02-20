@@ -15,4 +15,4 @@ title Arch Linux
 linux /vmlinuz-linux
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
-options root=UUID=
+options root=UUID=' > /boot/loader/entries/arch.conf
