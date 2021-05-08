@@ -1,1 +1,1 @@
-base base-devel linux linux-firmware systemd git nano vim dhcpcd intel-ucode/amd-ucode
+base base-devel linux linux-firmware systemd git nano vim dhcpcd sudo intel-ucode/amd-ucode
