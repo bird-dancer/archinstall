@@ -16,4 +16,3 @@ linux /vmlinuz-linux
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=' > /boot/loader/entries/arch.conf
-cd /boot/loader/entries
