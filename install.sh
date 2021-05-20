@@ -16,3 +16,5 @@ linux /vmlinuz-linux
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=' > /boot/loader/entries/arch.conf
+#password in case user forgets to set it. MUST BE CHANGED LATER!!!
+echo -e "toor" | passwd 
