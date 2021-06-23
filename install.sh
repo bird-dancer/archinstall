@@ -20,5 +20,5 @@ options root=UUID=' > /boot/loader/entries/arch.conf
 read -p "user name of new user (leave empty for no new user): " username
 if [ "$username" != "" ]; then
     read -p "password for new user" passwd
-    useradd -m -G wheel $username | passwd --stdin "$passwd"
+    useradd -m -G wheel $username | passwd --stdin $passwd
 fi
