@@ -20,16 +20,16 @@ case $desktop in
 		install+="code docker docker-compose mpv nomacs firefox thunderbird discord flatpak torbrowser-launcher alacritty neofetch"
 	;;
 esac
+case $zsh in [yY])
+	install+="zsh zsh-syntax-highlighting zsh-autosuggestions exa awesome-terminal-fonts"
+	;;
+esac
+$install
 case $yay in
 	[yY])
 		sudo git clone https://aur.archlinux.org/yay.git /opt/yay
 		sudo chown -R $USER /opt/yay
 		makepkg -si /opt/yay
 		;;
-esac
-$install
-case $zsh in [yY])
-	install+="zsh zsh-syntax-highlighting zsh-autosuggestions exa awesome-terminal-fonts"
-	;;
 esac
 updatedb
