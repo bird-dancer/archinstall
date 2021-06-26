@@ -4,7 +4,7 @@ read -p "install xorg[yY]" xorg
 read -p "install yay[yY]" yay
 read -p "install zsh " zsh
 
-install="pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
+install="sudo pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
 case $xorg in
 	[yY])
 		install+="xorg xorg-xinit"
@@ -22,14 +22,14 @@ case $desktop in
 esac
 case $yay in
 	[yY])
-		git clone https://aur.archlinux.org/yay.git /opt
-		chown -R $USER /opt/yay
+		sudo git clone https://aur.archlinux.org/yay.git /opt
+		sudo chown -R $USER /opt/yay
 		makepkg -si /opt/yay
 		;;
 esac
+$install
 case $zsh in [yY])
 	install+="zsh zsh-syntax-highlighting zsh-autosuggestions exa awesome-terminal-fonts"
 	;;
 esac
-$install
 updatedb
