@@ -4,19 +4,22 @@ read -p "install desktop applications[yY]" desktop
 read -p "install plasma[yY]" plasma
 read -p "install xorg[yY]" xorg
 read -p "install yay[yY]" yay
+read -p "install zsh " zsh
+
+install = "pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
 case $xorg in
 	[yY])
-		pacman -S xorg xorg-xinit
+		install+="xorg xorg-xinit"
 	;;
 esac
 case $plasma in
 	[yY])
-		pacman -S plasma sddm dolphin ark ntfs-3g
+		install+="pipewire pipewire-pulse plasma sddm dolphin ark ntfs-3g"
 	;;
 esac
 case $desktop in
 	[yY])
-		pacman -S pipewire pipewire-pulse code docker docker-compose mpv nomacs firefox thunderbird discord flatpak torbrowser-launcher alacritty neofetch
+		install+="code docker docker-compose mpv nomacs firefox thunderbird discord flatpak torbrowser-launcher alacritty neofetch"
 	;;
 esac
 case $yay in
@@ -26,4 +29,9 @@ case $yay in
 		makepkg -si /opt/yay
 		;;
 esac
+case $zsh in [yY])
+	install+="zsh zsh-syntax-highlighting zsh-autosuggestions exa awesome-terminal-fonts"
+	;;
+esac
+$install
 updatedb
