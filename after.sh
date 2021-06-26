@@ -1,18 +1,17 @@
-read -p "install desktop applications[yY]" desktop
-read -p "install plasma[yY]" plasma
-read -p "install xorg[yY]" xorg
-read -p "install yay[yY]" yay
-read -p "install zsh " zsh
+read -p "install desktop applications[yY] " desktop
+read -p "install plasma[yY] " plasma
+read -p "install xorg[yY] " xorg
+read -p "install yay[yY] " yay
+read -p "install zsh[yY] " zsh
 
 install="sudo pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
-case $xorg in
-	[yY])
-		install+=" xorg xorg-xinit"
-	;;
-esac
-case $plasma in
-	[yY])
+case $xorg in [yY])
+	install+=" xorg xorg-xinit"
+	case $plasma in [yY])
 		install+=" pipewire pipewire-pulse plasma sddm dolphin ark ntfs-3g"
+		rest="sudo systemctl enable sddm"
+		;;
+	esac
 	;;
 esac
 case $desktop in
@@ -25,6 +24,7 @@ case $zsh in [yY])
 	;;
 esac
 $install
+$rest
 case $yay in
 	[yY])
 		sudo git clone https://aur.archlinux.org/yay.git /opt/yay
@@ -32,4 +32,4 @@ case $yay in
 		makepkg -si /opt/yay
 		;;
 esac
-updatedb
+sudo updatedb
