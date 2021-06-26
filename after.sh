@@ -1,5 +1,3 @@
-pacman -S wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip
-
 read -p "install desktop applications[yY]" desktop
 read -p "install plasma[yY]" plasma
 read -p "install xorg[yY]" xorg
