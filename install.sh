@@ -17,7 +17,7 @@ initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=' > /boot/loader/entries/arch.conf
 
-passwd = ""
+passwd=""
 while [ -z $passwd ]; do
   read -p "password for root: " passwd
 done
