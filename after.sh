@@ -22,7 +22,7 @@ case $desktop in
 esac
 case $yay in
 	[yY])
-		sudo git clone https://aur.archlinux.org/yay.git /opt
+		sudo git clone https://aur.archlinux.org/yay.git /opt/yay
 		sudo chown -R $USER /opt/yay
 		makepkg -si /opt/yay
 		;;
