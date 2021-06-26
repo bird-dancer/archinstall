@@ -18,7 +18,7 @@ initrd  /initramfs-linux.img
 options root=UUID=' > /boot/loader/entries/arch.conf
 
 passwd = ""
-while [ $passwd == "" ]; do
+while [ -z $passwd ]; do
   read -p "password for root: " passwd
 done
 echo -e "$passwd\n$passwd" | passwd
