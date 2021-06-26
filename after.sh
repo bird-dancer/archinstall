@@ -6,7 +6,7 @@ read -p "install xorg[yY]" xorg
 read -p "install yay[yY]" yay
 read -p "install zsh " zsh
 
-install = "pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
+install="pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
 case $xorg in
 	[yY])
 		install+="xorg xorg-xinit"
