@@ -4,7 +4,7 @@ echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
 locale-gen
-read -p "device name" name
+read -p "device name: " name
 echo "$name" > /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
