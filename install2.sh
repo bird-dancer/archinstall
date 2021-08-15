@@ -1,7 +1,7 @@
 ## finishing the install instructions from the wiki
 locale=""
 while [ -z $locale ]; do
-	read -p "locale: "
+	read -p "locale: " locale
 done
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
