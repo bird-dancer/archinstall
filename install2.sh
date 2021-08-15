@@ -5,8 +5,8 @@ while [ -z $locale ]; do
 done
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
-echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
-echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
+echo "LANG=en_US.$locale" > /etc/locale.conf
 echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
 locale-gen
 read -p "device name: " name
