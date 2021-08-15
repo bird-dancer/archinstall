@@ -75,6 +75,7 @@ if [ $username != "" ]; then
 	useradd -m -G wheel $username
 	echo -e "$passwd\n$passwd" | passwd
 	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudofi
+fi
 $rest
 # installing yay
 case $yay in
