@@ -17,7 +17,7 @@ echo "127.0.0.1	localhost
 mkinitcpio -P
 bootctl --path=/boot install
 read -p "intel or amd cpu: " cpu
-echo 'default arch-*' >> /boot/loader/loader.conf
+echo 'default arch-*' > /boot/loader/loader.conf
 echo "title Arch Linux
 linux /vmlinuz-linux
 initrd  /$cpu-ucode.img
