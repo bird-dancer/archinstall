@@ -83,4 +83,4 @@ case $yay in
 		;;
 esac
 updatedb
-echo "dont forget to add the UID in the /boot/loader/entries/arch.conf file!!!"
+echo 'dont forget to add the UID in the /boot/loader/entries/arch.conf file!!!'
