@@ -41,6 +41,8 @@ read -p "install zsh[yY]: " zsh
 install="pacman -Syyu wget curl python"
 case terminal in [yY])
 	install+=" dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip go"
+	;;
+esac
 case $xorg in [yY])
 	install+=" xorg xorg-xinit"
 	read -p "install plasma[yY]: " plasma
