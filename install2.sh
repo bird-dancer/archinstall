@@ -74,7 +74,7 @@ $install
 if [ $username != "" ]; then
 	useradd -m -G wheel $username
 	echo -e "$passwd\n$passwd" | passwd
-	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudofi
+	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 fi
 $rest
 # installing yay
