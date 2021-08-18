@@ -6,7 +6,7 @@ done
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
 echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.$locale" > /etc/locale.conf
+echo "LANG=$locale.UTF-8" > /etc/locale.conf
 echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
 locale-gen
 read -p "device name: " name
@@ -26,7 +26,7 @@ options root=UUID=" > /boot/loader/entries/arch.conf
 
 passwd=""
 while [ -z $passwd ]; do
-  read -p "password for root: " passwd
+	read -p "password for root: " passwd
 done
 echo -e "$passwd\n$passwd" | passwd
 
@@ -51,11 +51,12 @@ case $xorg in [yY])
 		while [ -z $username ]; do
 			read -p "username for new user: " username
 		done
+		passwd=""
 		while [ -z $passwd ]; do
 			read -p "password for $username: " passwd
 		done
 		install+=" pipewire pipewire-pulse plasma sddm dolphin ark ntfs-3g alacritty sudo"
-		rest="systemctl enable sddm \n localectl set-x11-keymap de"
+		rest="systemctl enable sddm && localectl set-x11-keymap de"
 		read -p "install desktop applications[yY]: " desktop
 		case $desktop in [yY])
 			install+=" code docker docker-compose mpv nomacs firefox thunderbird discord flatpak torbrowser-launcher neofetch"
