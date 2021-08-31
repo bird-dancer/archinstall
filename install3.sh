@@ -12,7 +12,7 @@ ask() {
 	echo $answer
 }
 # reading, setting and generating the locale
-locale=$(ask "locale:")
+locale=$(ask "locale (e.g. en_US:")
 echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=$locale.UTF-8" > /etc/locale.conf
 echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
@@ -37,7 +37,7 @@ mkinitcpio -P
 if [ -d ls /sys/firmware/efi/efivars ]; then
 	# getting UUID of the root partition
 	lkblk
-	root=$(ask "what is your root partition (e.g. sdc3)"
+	root=$(ask "what is your root partition (e.g. sdc3)")
 	UUID=$(blkid /dev/$root)
 	UUID="${UUID#*UUID=}"
 	UUID="${UUID%%B*}"
