@@ -34,7 +34,7 @@ mkinitcpio -P
 # if uefi then systemd-boot will be used
 # if bios then grub bootloader
 #
-if [ -d ls /sys/firmware/efi/efivars ]; then
+if [[ -d ls /sys/firmware/efi/efivars ]]; then
 	# getting UUID of the root partition
 	lkblk
 	root=$(ask "what is your root partition (e.g. sdc3)")
