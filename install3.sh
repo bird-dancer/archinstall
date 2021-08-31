@@ -52,6 +52,8 @@ if [ -d /sys/firmware/efi/efivars ]; then
 	initrd  /initramfs-linux.img
 	options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
 else
+	pacman -S grub
+	lkblk
 	root=$(ask 'Disk to install (e.g. sdc):')
 	grub-install --target=i386-pc /dev/$root
 fi
