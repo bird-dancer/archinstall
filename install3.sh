@@ -36,7 +36,7 @@ mkinitcpio -P
 #
 if [ -d /sys/firmware/efi/efivars ]; then
 	# getting UUID of the root partition
-	lkblk
+	blkid
 	root=$(ask 'what is your root partition (e.g. sdc3)')
 	UUID=$(blkid /dev/$root)
 	UUID="${UUID#*UUID=}"
@@ -53,7 +53,7 @@ if [ -d /sys/firmware/efi/efivars ]; then
 	options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
 else
 	pacman -S grub
-	lkblk
+	blkid
 	root=$(ask 'Disk to install (e.g. sdc):')
 	grub-install --target=i386-pc /dev/$root
 fi
