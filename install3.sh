@@ -35,13 +35,13 @@ mkinitcpio -P
 # if bios then grub bootloader
 #
 if [ -d /sys/firmware/efi/efivars ]; then
-	# getting UUID of the root partition
+# getting UUID of the root partition
 	blkid
 	root=$(ask 'what is your root partition (e.g. sdc3)')
 	UUID=$(blkid /dev/$root)
 	UUID="${UUID#*UUID=}"
 	UUID="${UUID%%B*}"
-	# installing and setting up bootloader
+# installing and setting up systemd-boot
 	bootctl --path=/boot install
 	cpu=$(ask 'are you using an intel or amd cpu (answer intel or amd)')
 	pacman -S $cpu-ucode
@@ -52,10 +52,13 @@ if [ -d /sys/firmware/efi/efivars ]; then
 	initrd  /initramfs-linux.img
 	options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
 else
+# setting up grub
 	pacman -S grub
 	blkid
 	root=$(ask 'Disk to install (e.g. sdc):')
-	grub-install --target=i386-pc /dev/$root
+	grub-install /dev/$root
+	grub-mkconfig -o /boot/grub/grub.cfg
+	update-grub && update-initramfs -u
 fi
 # get and set root password
 passwd=$(ask 'root password:')
