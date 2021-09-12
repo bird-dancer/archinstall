@@ -2,7 +2,7 @@ read -p "install desktop applications[yY]: " desktop
 read -p "install yay[yY]: " yay
 read -p "install zsh[yY]: " zsh
 read -p "install my personally used programms[yY]: " personal
-
+read -p "install xorg[yY]: " xorg
 install="pacman -Syyu wget python vim nano htop"
 case $xorg in [yY])
 	install+=" xorg xorg-xinit"
@@ -20,7 +20,6 @@ case $xorg in [yY])
 	esac
 	;;
 esac
-case
 case $desktop in
 	[yY])
 		install+=" mpv nomacs firefox thunderbird"
@@ -33,6 +32,7 @@ esac
 case $personal in [yY])
 	install+=" code docker docker-compose go torbrowser-launcher dnsutils openssh ranger tree nmap zip unzip vim mlocate dnsutils curl"
 	;;
+esac
 $install
 if [ $username != "" ]; then
 	useradd -m -G wheel $username

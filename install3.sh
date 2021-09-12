@@ -54,7 +54,7 @@ if [ -d /sys/firmware/efi/efivars ]; then
 else
 # setting up grub
 	pacman -S grub
-	fdisk -l
+	lsblk
 	root=$(ask 'Disk to install (e.g. sdc):')
 	grub-install /dev/$root
 	grub-mkconfig -o /boot/grub/grub.cfg
