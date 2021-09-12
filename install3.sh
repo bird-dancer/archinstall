@@ -60,6 +60,9 @@ else
 	grub-mkconfig -o /boot/grub/grub.cfg
 	update-grub && update-initramfs -u
 fi
+# try enableing networking tools
+systemctl enable NetworkManager
+systemctl enable dhcpcd
 # get and set root password
 passwd=$(ask 'root password:')
-echo -e "$passwd\n$passwd" | passwd
+chpasswd <<<"root:$passwd"
