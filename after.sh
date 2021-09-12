@@ -36,7 +36,7 @@ esac
 $install
 if [ $username != "" ]; then
 	useradd -m -G wheel $username
-	echo -e "$passwd\n$passwd" | passwd
+	chpasswd <<<"$username:$passwd"
 	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 fi
 $rest
@@ -46,6 +46,7 @@ case $yay in
 		git clone https://aur.archlinux.org/yay.git /opt/yay
 		chown -R $USER /opt/yay
 		cd /opt/yay
+		
 		makepkg -si
 		;;
 esac
