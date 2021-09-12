@@ -36,7 +36,7 @@ mkinitcpio -P
 #
 if [ -d /sys/firmware/efi/efivars ]; then
 # getting UUID of the root partition
-	blkid
+	lsblk
 	root=$(ask 'what is your root partition (e.g. sdc3)')
 	UUID=$(blkid /dev/$root)
 	UUID="${UUID#*UUID=}"

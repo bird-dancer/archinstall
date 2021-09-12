@@ -1,35 +1,52 @@
 read -p "install desktop applications[yY]: " desktop
-read -p "install plasma[yY]: " plasma
-read -p "install xorg[yY]: " xorg
 read -p "install yay[yY]: " yay
 read -p "install zsh[yY]: " zsh
+read -p "install my personally used programms[yY]: " personal
 
-install="sudo pacman -Syyu wget curl python go dnsutils mlocate vim nano openssh ranger htop tree which nmap zip unzip"
+install="pacman -Syyu wget python vim nano htop"
 case $xorg in [yY])
 	install+=" xorg xorg-xinit"
+	read -p "install plasma[yY]: " plasma
 	case $plasma in [yY])
-		install+=" pipewire pipewire-pulse plasma sddm dolphin ark ntfs-3g"
-		rest="sudo systemctl enable sddm"
+		while [ -z $username ]; do
+			read -p "username for the new user: " username
+		done
+		while [ -z $passwd ]; do
+			read -p "password for $username: " passwd
+		done
+		install+=" pipewire pipewire-pulse plasma sddm dolphin ark alacritty ntfs-3g qt5-imageformats sudo"
+		rest="systemctl enable sddm && localectl set-x11-keymap de"
 		;;
 	esac
 	;;
 esac
+case
 case $desktop in
 	[yY])
-		install+=" code docker docker-compose mpv nomacs firefox thunderbird discord flatpak torbrowser-launcher alacritty neofetch"
+		install+=" mpv nomacs firefox thunderbird"
 	;;
 esac
 case $zsh in [yY])
 	install+=" zsh zsh-syntax-highlighting zsh-autosuggestions exa awesome-terminal-fonts"
 	;;
 esac
+case $personal in [yY])
+	install+=" code docker docker-compose go torbrowser-launcher dnsutils openssh ranger tree nmap zip unzip vim mlocate dnsutils curl"
+	;;
 $install
+if [ $username != "" ]; then
+	useradd -m -G wheel $username
+	echo -e "$passwd\n$passwd" | passwd
+	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
+fi
 $rest
 case $yay in
 	[yY])
-		sudo git clone https://aur.archlinux.org/yay.git /opt/yay
-		sudo chown -R $USER /opt/yay
-		makepkg -si /opt/yay
+		pacman -S go base-devel
+		git clone https://aur.archlinux.org/yay.git /opt/yay
+		chown -R $USER /opt/yay
+		cd /opt/yay
+		makepkg -si
 		;;
 esac
-sudo updatedb
+updatedb
