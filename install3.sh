@@ -7,7 +7,7 @@
 ask() {
 	read -p "$1 " answer
 	if [ -z $answer ]; then
-		answer=$(ask $1)
+		answer=$(ask "$1")
 	fi
 	echo $answer
 }
