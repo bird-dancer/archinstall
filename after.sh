@@ -3,7 +3,7 @@ read -p "install yay[yY]: " yay
 read -p "install zsh[yY]: " zsh
 read -p "install my personally used programms[yY]: " personal
 read -p "install xorg[yY]: " xorg
-install="pacman -Syyu wget python vim nano htop net-tools"
+install="pacman -Syyu wget python vim nano htop net-tools man-pages"
 case $xorg in [yY])
 	install+=" xorg xorg-xinit"
 	read -p "install plasma[yY]: " plasma
