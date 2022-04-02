@@ -34,12 +34,12 @@ case $personal in [yY])
 	;;
 esac
 $install
+$rest
 if [ $username != "" ]; then
 	useradd -m -G wheel $username
 	chpasswd <<<"$username:$passwd"
 	echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 fi
-$rest
 case $yay in
 	[yY])
 		pacman -S go base-devel
