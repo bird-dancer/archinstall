@@ -3,7 +3,7 @@ read -p "install yay[yY]: " yay
 read -p "install zsh[yY]: " zsh
 read -p "install my personally used programms[yY]: " personal
 read -p "install xorg[yY]: " xorg
-install="pacman -Syyu wget python vim nano htop net-tools man-pages"
+install="pacman -Syyu wget python vim nano htop net-tools man-pages networkmanager man"
 case $xorg in [yY])
 	install+=" xorg xorg-xinit"
 	read -p "install plasma[yY]: " plasma
@@ -14,7 +14,7 @@ case $xorg in [yY])
 		while [ -z $passwd ]; do
 			read -p "password for $username: " passwd
 		done
-		install+=" pipewire pipewire-pulse plasma sddm dolphin ark alacritty ntfs-3g qt5-imageformats sudo"
+		install+=" pipewire pipewire-pulse plasma sddm dolphin ark konsole ntfs-3g qt5-imageformats sudo"
 		rest="systemctl enable sddm && localectl set-x11-keymap de"
 		;;
 	esac
