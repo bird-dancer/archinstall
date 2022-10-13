@@ -22,7 +22,7 @@ timezone=$(ask 'timezone (e.g. Europe/Berlin):')
 ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 hwclock --systohc
 # reading and setting hostname
-name=$(ask 'device name')
+name=$(ask 'device name:')
 echo "$name" > /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
@@ -37,7 +37,7 @@ mkinitcpio -P
 if [ -d /sys/firmware/efi/efivars ]; then
 # getting UUID of the root partition
 	lsblk
-	root=$(ask 'what is your root partition (e.g. sdc3)')
+	root=$(ask 'what is your root partition? (e.g. sdc3):')
 	UUID=$(blkid /dev/$root)
 	UUID="${UUID#*UUID=}"
 	UUID="${UUID%%B*}"
