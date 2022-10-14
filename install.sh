@@ -47,10 +47,10 @@ if [ -d /sys/firmware/efi/efivars ]; then
 	pacman -S $cpu-ucode
 	echo 'default arch-*' > /boot/loader/loader.conf
 	echo "title Arch Linux
-	linux /vmlinuz-linux
-	initrd  /$cpu-ucode.img
-	initrd  /initramfs-linux.img
-	options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
+linux /vmlinuz-linux
+initrd  /$cpu-ucode.img
+initrd  /initramfs-linux.img
+options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
 else
 # setting up grub
 	pacman -S grub
