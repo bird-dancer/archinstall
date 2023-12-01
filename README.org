@@ -2,6 +2,12 @@
 #+author: felix dumbeck
 
 * archinstall
+** prerequisites
+
+#+begin_src bash
+  base base-devel linux linux-firmware git nano vim networkmanager intel-ucode/amd-ucode
+#+end_src
+
 ** how to use:
 
 *use after having mounted and changed into the new root partition*

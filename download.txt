@@ -1,1 +1,0 @@
-base base-devel linux linux-firmware git nano vim networkmanager intel-ucode/amd-ucode
