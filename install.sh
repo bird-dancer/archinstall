@@ -1,21 +1,30 @@
 #
 # This is my personal install script for archlinux which can be used after changing root into the new system
 #
-# prints a promt and repeats it if the user gives an empty input
+# prints a promt and repeats it if the user gives an invalid input
 # $1: text of promt
+# $2: allowed answers	leave empty if the input content does not matter
 # returns the answer
+# example usage answer=$(ask "Some Question" "[yYnN]")
 ask() {
-	read -p "$1 " answer
-	if [ -z $answer ]; then
-		answer=$(ask "$1")
+    read -r -p "$1 $2 " answer
+    if [ -z "$answer" ];then
+	answer=$(ask "$1" "$2")
+    fi
+    if [[ "" != "$2" ]];then
+	if ! [[ $answer =~ $2 ]];then
+	    answer=$(ask "$1" "$2")
 	fi
-	echo $answer
+    fi
+    echo "$answer"
 }
+
 # reading, setting and generating the locale
 locale=$(ask 'locale (e.g. en_US:')
 echo "$locale.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=$locale.UTF-8" > /etc/locale.conf
-echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
+echo "LANG=$locale.UTF-8" >> /etc/locale.conf
+read -p "prefered keymap (eg. de-latin1) (leave empty for us)" keymap
+echo "KEYMAP=$keymap" >> /etc/vconsole.conf
 locale-gen
 # setting time zone and synching hardware clock
 timezone=$(ask 'timezone (e.g. Europe/Berlin):')
@@ -27,42 +36,38 @@ echo "$name" > /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
 127.0.1.1	$name.localdomain	$name" >> /etc/hosts
-#
-mkinitcpio -P
-#
-# install bootloader
-# if uefi then systemd-boot will be used
-# if bios then grub bootloader
-#
-if [ -d /sys/firmware/efi/efivars ]; then
+# install and set up systemd-boot bootloader
 # getting UUID of the root partition
-	lsblk
-	root=$(ask 'what is your root partition? (e.g. sdc3):')
-	UUID=$(blkid /dev/$root)
-	UUID="${UUID#*UUID=}"
-	UUID="${UUID%%B*}"
-# installing and setting up systemd-boot
-	bootctl --path=/boot install
-	cpu=$(ask 'are you using an intel or amd cpu (answer intel or amd)')
-	pacman -S $cpu-ucode
-	echo 'default arch-*' > /boot/loader/loader.conf
-	echo "title Arch Linux
+lsblk
+root=$(ask 'what is your root partition? (e.g. sdc3):')
+uuid=$(echo "$root" | grep -oP 'UUID="\K[^"]+' | head -n 1)
+bootctl --path=/boot install
+cpu=$(ask 'are you using an intel or amd cpu (answer intel or amd)')
+pacman -S $cpu-ucode
+echo 'default arch-*' > /boot/loader/loader.conf
+# encryption
+encrypt=$(ask 'would you like to use encryption?' "[yYnN]")
+if [[ $encrypt =~  [yY] ]];then
+    mkinitcpio.conf > /etc/mkinitcpio.conf
+    lsblk
+    cryptvolume=$(ask 'what is the name of your crypt volume?')
+    mkinitcpio -P linux
+    echo "title Arch Linux
 linux /vmlinuz-linux
 initrd  /$cpu-ucode.img
 initrd  /initramfs-linux.img
-options root=UUID=$UUID rw "> /boot/loader/entries/arch.conf
+options cryptdevice=UUID=$uuid:$cryptvolume root=/dev/mapper/$cryptvolume quiet rw "> /boot/loader/entries/arch.conf
 else
-# setting up grub
-	pacman -S grub
-	lsblk
-	root=$(ask 'Disk to install (e.g. sdc):')
-	grub-install /dev/$root
-	grub-mkconfig -o /boot/grub/grub.cfg
-	update-grub && update-initramfs -u
+    echo "title Arch Linux
+linux /vmlinuz-linux
+initrd  /$cpu-ucode.img
+initrd  /initramfs-linux.img
+options root=UUID=$uuid  quiet rw "> /boot/loader/entries/arch.conf
 fi
+
 # try enableing networking tools
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 # get and set root password
 passwd=$(ask 'root password:')
-chpasswd <<<"root:$passwd"
+chpasswd <<< "root:$passwd"
