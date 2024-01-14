@@ -68,6 +68,5 @@ fi
 # try enableing networking tools
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-# get and set root password
-passwd=$(ask 'root password:')
-chpasswd <<< "root:$passwd"
+# set root password
+passwd
