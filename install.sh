@@ -40,7 +40,7 @@ echo "127.0.0.1	localhost
 # getting UUID of the root partition
 lsblk
 root=$(ask 'what is your root partition? (e.g. sdc3):')
-uuid=$(echo "$root" | grep -oP 'UUID="\K[^"]+' | head -n 1)
+uuid=$(echo $(blkid "$root") | grep -oP 'UUID="\K[^"]+' | head -n 1)
 bootctl --path=/boot install
 cpu=$(ask 'are you using an intel or amd cpu (answer intel or amd)')
 pacman -S $cpu-ucode
