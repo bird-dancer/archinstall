@@ -48,7 +48,7 @@ echo 'default arch-*' > /boot/loader/loader.conf
 # encryption
 encrypt=$(ask 'would you like to use encryption?' "[yYnN]")
 if [[ $encrypt =~  [yY] ]];then
-    mkinitcpio.conf > /etc/mkinitcpio.conf
+    cp mkinitcpio.conf /etc/mkinitcpio.conf
     lsblk
     cryptvolume=$(ask 'what is the name of your crypt volume?')
     mkinitcpio -P linux
