@@ -2,20 +2,27 @@
 #+author: felix dumbeck
 
 * archinstall
+
+sets up (if you choose encrypted) systemd-boot and all of the stuff you need to do after mounting
+
 ** prerequisites
 
 #+begin_src bash
-  base base-devel linux linux-firmware git nano vim networkmanager intel-ucode/amd-ucode
+  pacstrap -K /mnt base base-devel linux linux-firmware git nano vim networkmanager intel-ucode/amd-ucode
 #+end_src
 
 ** how to use:
 
 *use after having mounted and changed into the new root partition*
 
-- install git
-- change into the ~archinstall~ directory
-- run ~./install2.sh~ and answer all the promts
-- Arch Linux and a bootloader are now installed on your pc, so you could restart and everything works now.
+#+begin_src bash
+  git clone --depth 1 https://github.com/f-eliks/archinstall.git && cd archinstall
+  ./install.sh
+#+end_src
+
++ answer all the promts
++ the chroot environment and reboot
 
 ** optional:
+
 - run ~./after.sh~ to install a desktop environment, several "useful" applications and create a new user.
