@@ -1,5 +1,6 @@
-#
-# This is my personal install script for archlinux which can be used after changing root into the new system
+echo "##############################################################################################################
+# This is my personal install script for archlinux which can be used after changing root into the new system #
+##############################################################################################################"
 #
 # prints a promt and repeats it if the user gives an invalid input
 # $1: text of promt
@@ -39,18 +40,19 @@ echo "127.0.0.1	localhost
 # install and set up systemd-boot bootloader
 # getting UUID of the root partition
 lsblk
-root=$(ask 'what is your root partition? (e.g. sdc3):')
+root=$(ask 'what is your root partition? (e.g. /dev/sdc3):')
 uuid=$(echo $(blkid "$root") | grep -oP 'UUID="\K[^"]+' | head -n 1)
 bootctl --path=/boot install
-cpu=$(ask 'are you using an intel or amd cpu (answer intel or amd)')
+cpu=$(ask 'are you using an intel or amd cpu?' "[intel,amd]")
 pacman -S $cpu-ucode
-echo 'default arch-*' > /boot/loader/loader.conf
+echo 'default arch-*
+console-mode max' > /boot/loader/loader.conf
 # encryption
-encrypt=$(ask 'would you like to use encryption?' "[yYnN]")
+encrypt=$(ask 'would you like to use encryption? (you must have a luks cryptvolume)' "[yYnN]")
 if [[ $encrypt =~  [yY] ]];then
     cp mkinitcpio.conf /etc/mkinitcpio.conf
     lsblk
-    cryptvolume=$(ask 'what is the name of your crypt volume?')
+    cryptvolume=$(ask 'what is the name of your crypt volume? (eg. type "root" for /dev/mapper/root)')
     mkinitcpio -P linux
     echo "title Arch Linux
 linux /vmlinuz-linux
